@@ -1,14 +1,9 @@
-% Implementation of variants of non local means filter
-% Xavier Sumba
+% Non-Local Means implementations
+% This project contain different implenmentations of NLM
 %
 % Files
-%   bnlm            - Apply Blockwise Non local means filter
+%   bnlm            - Blockwise NLM
 %   gaussian        - Obtain gaussian filter with std sigma and size |2d+1|
-%   main_dummy      - Image
-%   main_pet        - Image
-%   nlm             - Apply Non local means filter
+%   nlm             - NLM
 %   partition_block - Get patition of overlapping blocks
-%   test_bnlm       - Image
 %   weight          - weight assigned for current voxel with smoothing parameter h
-
-
