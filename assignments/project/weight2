@@ -1,0 +1,10 @@
+% weights 2 for improvement 1
+function w2 = weight2(x, kernel, beta, sig, Ni)
+% weight assigned for current voxel with smoothing parameter h
+% x = conv2(x.^2, kernel, 'same');
+x = x.^2 .* kernel;
+num = sum(sum(x)); % this remains the same
+% denominator changes to 2*beta*sig.^2*|N_i|, sig=sig.^2
+h=2*beta*sig.^2*|N_i|
+w2 = exp(-num / h.^2);
+end
