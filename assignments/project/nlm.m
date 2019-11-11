@@ -42,7 +42,7 @@ function [img_filter,img_filter2] = nlm(img, d, M, h, a)
                end
                % normalize
                weights = weights / sum(weights);
-               weight2=weight2/sum(weights2);           %improvement 1
+               weights2=weights2/sum(weights2);           %improvement 1
                nlm_val = sum(weights.*intensities);               
                img_filter(i-d,j-d,p) = nlm_val;    
                nlm_val2 = sum(weights2.*intensities);   %improvement 1            
