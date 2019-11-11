@@ -1,10 +1,11 @@
-function img_filter = nlm(img, d, M, h, a)
+function [img_filter,img_filter2] = nlm(img, d, M, h, a)
 % Apply Non local means filter
 % img: 3D image
 % d: length of local neighboorhod
 % M: length of search volume
 % h: smoothing parameter
 % a: std of gaussian kernel
+% img_filter2 : improvement 1 applied 
     [r, c, f] = size(img); 
     
     img = double(img);
@@ -24,20 +25,31 @@ function img_filter = nlm(img, d, M, h, a)
                        if(vi==i && vj==j) continue; end;
                        
                        Nj = img_pad(vi-d:vi+d,vj-d:vj+d,p);
+                       
 
                        w = weight(Ni - Nj, gauss_kernel, h);
-
                        weights = [weights w];
-                       intensities = [intensities img_pad(vi, vj, p)];
+                       intensities = [intensities img_pad(vi, vj, p)];  
+                       
+                       % adjustment 1;
+                       beta=0.9;                        %random value close to 1
+                       omega=Ni*Nj;                     %cubic grid
+                       sig = sigma(nlm_val,intensities, omega);                       
+                       w2 = weight2(Ni - Nj, gauss_kernel, beta, sig, Ni)
+                       weights2 =[weights2 w2];
+                       
                    end
                end
                % normalize
                weights = weights / sum(weights);
-               nlm_val = sum(weights.*intensities);
-%                fprintf("%.2f/%d/%d \n",nlm_val,uint8(nlm_val),img_pad(i,j,p))
-               img_filter(i-d,j-d,p) = nlm_val;
+               weight2=weight2/sum(weights2);           %improvement 1
+               nlm_val = sum(weights.*intensities);               
+               img_filter(i-d,j-d,p) = nlm_val;    
+               nlm_val2 = sum(weights2.*intensities);   %improvement 1            
+               img_filter2(i-d,j-d,p) = nlm_val2;       %improvement 1
            end
        end
     end
     img_filter = uint8(img_filter);
+    img_filter2 = uint8(img_filter2);                   %improvement 1
 end
