@@ -1,4 +1,4 @@
-%3d mri denoising
+%3d mri denoising NLM filter
 % d: length of local neighboorhod
 % M: length of search volume
 % h: smoothing parameter
