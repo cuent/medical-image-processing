@@ -3,9 +3,9 @@ addpath(genpath('..'));
 
 load T1_T2_PD.mat;
 img = zeros([size(pd), 3]);
-img(:,:,1) = pd;
-img(:,:,2) = t1;
-img(:,:,3) = t2;
+img(:,:,1) = t1;
+img(:,:,2) = t2;
+img(:,:,3) = pd;
 
 % % Image
 I = img;
